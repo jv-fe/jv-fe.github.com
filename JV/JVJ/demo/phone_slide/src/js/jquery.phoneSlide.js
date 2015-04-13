@@ -106,7 +106,7 @@ $.ns("JV");
 				var now_index = index;
 				if (touchs - touche >= 10) { //向上滑动
 					if (index < len) {
-						console.log(This_screen)
+						//console.log(This_screen)
 						This_screen.css({
 							"-webkit-transform": "translateY(-" + w_h + "px)",
 							"transform": "translateY(-" + w_h + "px)"
@@ -323,7 +323,7 @@ $.ns("JV");
 									"-webkit-transform": "translateY(" + w_h + "px)",
 									"transform": "translateY(" + w_h + "px)",
 								});
-								console.log(This_screen.nextAll("section"))
+								//console.log(This_screen.nextAll("section"))
 									//重置页面不规律滚动错位
 								This_screen.nextAll("section").css({
 									"-webkit-transform": "translateY(" + w_h + "px)",
