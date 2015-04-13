@@ -25,6 +25,7 @@ $.ns("JV");
 			speed: 200, //滚动速度快慢
 			scale: "n", //是否有滚动缩放
 			rotation: "y", //是否开启横屏提示
+			cooldownTime: 500, //连续滚动冷却时间
 			callback: function(index) {
 
 			}
@@ -63,8 +64,8 @@ $.ns("JV");
 				touchs = 0,
 				touchm = 0,
 				touche = 0,
-				move_timer = self.cfg.speed + 300, //自动补全动画
-				cooldown = false,
+				move_timer = self.cfg.speed, //自动补全动画
+				cooldownTime = self.cfg.cooldownTime,
 				timer,
 				scale = 0,
 				h_change = 0,
@@ -77,8 +78,8 @@ $.ns("JV");
 			var cont = tar[0];
 			var len = tar.children("section").length;
 			$(".screen").css({
-				"-webkit-transition": "all .5s ease-out 0s",
-				"transition": "all .5s ease-out 0s"
+				"-webkit-transition": "all " + move_timer + "ms ease-out 0s",
+				"transition": "all " + move_timer + "ms ease-out 0s"
 			})
 			cont.addEventListener('touchstart', function(event) {
 				//event.preventDefault();
@@ -96,7 +97,7 @@ $.ns("JV");
 				switchs = false;
 				timer = setTimeout(function() {
 					switchs = true;
-				}, 1000)
+				}, cooldownTime)
 				var touch = event.changedTouches[0];
 				touche = touch.pageY;
 				var move_end = Math.abs(touchs - touche);
@@ -165,7 +166,7 @@ $.ns("JV");
 				touchm = 0,
 				touche = 0,
 				move_timer = self.cfg.speed, //自动补全动画
-				cooldown = false,
+				cooldownTime = self.cfg.cooldownTime,
 				timer,
 				scale = 0,
 				h_change = 0,
@@ -251,7 +252,7 @@ $.ns("JV");
 				switchs = false;
 				timer = setTimeout(function() {
 					switchs = true;
-				}, 1000)
+				}, cooldownTime)
 				var touch = event.changedTouches[0];
 				touche = touch.pageY;
 				var move_end = Math.abs(touchs - touche);
@@ -394,7 +395,7 @@ $.ns("JV");
 				touchm = 0,
 				touche = 0,
 				move_timer = self.cfg.speed, //自动补全动画
-				cooldown = false,
+				cooldownTime = self.cfg.cooldownTime,
 				timer,
 				scale = 0,
 				h_change = 0,
@@ -463,7 +464,7 @@ $.ns("JV");
 				switchs = false;
 				timer = setTimeout(function() {
 					switchs = true;
-				}, 1000)
+				}, cooldownTime)
 				var touch = event.changedTouches[0];
 				touche = touch.pageY;
 				var move_end = Math.abs(touchs - touche);
