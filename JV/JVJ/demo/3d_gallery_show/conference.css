@@ -1,0 +1,32 @@
+@charset "utf-8";
+body{background:#190a21;}
+ul{margin:0;padding:0;list-style:none;}
+/* CSS Document */
+.p-conference{position:relative;height:980px;background:url(http://heroes.nos.netease.com/1/images/minisite/conference/bg.jpg) center 0 no-repeat;}
+.u-logo{position:absolute;left:50%;top:-30px;margin-left:-210px;width:420px;height:278px;text-indent:-9999px;background:url(http://heroes.nos.netease.com/1/images/minisite/conference/logo.png) 0 0 no-repeat;}
+.u-vote{position:absolute;left:50%;top:775px;margin-left:-127px;width:254px;height:90px;text-indent:-9999px;cursor:pointer;background:url(http://heroes.nos.netease.com/1/images/minisite/conference/sprite.png) 0 0 no-repeat;}
+.u-vote:hover{background-position:0 -130px}
+.u-vote-disable{cursor:default;background-position:-300px 0px;}
+.u-vote-disable:hover{background-position:-300px 0px;}
+
+.m-gallery{opacity:0;position:absolute;left:50%;top:340px;margin-left:-500px;width:1000px;height:450px;}
+.m-gallery .abtn{display:block;position:absolute;top:200px;width:35px;height:58px;text-indent:-9999px;z-index:99;background:url(http://heroes.nos.netease.com/1/images/minisite/conference/sprite.png) -9999px -9999px no-repeat;}
+.m-gallery .abtn-prev{left:30px;background-position:0px -250px;}
+.m-gallery .abtn-next{right:30px;background-position:-60px -250px;}
+.m-gallery .abtn-prev:hover{background-position:0px -320px;}
+.m-gallery .abtn-next:hover{background-position:-60px -320px;}
+
+.w-share{position:absolute;right:40px;top:200px;}
+.w-share li{padding:5px;background:#000;background:rgba(0,0,0,.3);}
+.w-share li:hover{background:#000;}
+.w-share li a{display:block;width:38px;height:42px;cursor:pointer;text-indent:-9999px;background:url(http://heroes.nos.netease.com/1/images/minisite/conference/sidebar.png) no-repeat;}
+.w-share li a.jiathis_button_tsina{background-position:0px 0px;}
+.w-share li a.jiathis_button_tqq{background-position:0px -65px;}
+.w-share li a.jiathis_button_yixin{background-position:0px -130px;}
+.w-share li a.jiathis_button_weixin{background-position:0px -195px;}
+.w-share li a.jiathis_button_tieba{background-position:0px -260px;}
+.w-share li a.jiathis_button_tsina:hover{background-position:-60px 0px;}
+.w-share li a.jiathis_button_tqq:hover{background-position:-60px -65px;}
+.w-share li a.jiathis_button_yixin:hover{background-position:-60px -130px;}
+.w-share li a.jiathis_button_weixin:hover{background-position:-60px -195px;}
+.w-share li a.jiathis_button_tieba:hover{background-position:-60px -260px;}
