@@ -14,13 +14,17 @@ $.ns("JV");
 (function($) {
     /*
 	* @pram tar jquery object
-	* @exp	new JV.phoneSlide($("#content"), {
-			effect:""
-			callBack: function(index) { //滚屏组件
-				if (index == 1 ) {
-				}
-			}
-		});
+	* @exp
+    * new JV.phoneSlide($("#content"), {
+                effect: "", //ScreenCling,ScreenTouch,ScreenTouchGo
+                speed: 200, //滚动速度快慢
+                scale: "", //是否有滚动缩放 "n" or "y"
+                rotation:"y", //是否开启横屏提示
+                callBack: function(index) { //滚屏组件
+                    if (index == 1) { //是否是第一页
+                    }
+                }
+            });
 	*/
     JV.phoneSlide = function(tar, cfg) {
         var defaults = {
@@ -106,7 +110,7 @@ $.ns("JV");
                 var now_index = index;
                 if (val >= 10) {
                     if (index < len) {
-                        console.log(This_screen)
+                        //console.log(This_screen)
                         This_screen.css({
                             "-webkit-transform": "translateY(-" + w_h + "px)",
                             "transform": "translateY(-" + w_h + "px)"
@@ -176,12 +180,12 @@ $.ns("JV");
             document.body.onmousewheel = function(event) {
                 event = event || window.event;
                 //console.dir(event);
-                console.log(event.wheelDelta)
+                //console.log(event.wheelDelta)
                 go(-event.wheelDelta/6);
             };
             document.body.addEventListener("DOMMouseScroll", function(event) {
                 //console.dir(event);
-                console.log(event.detail)
+                //console.log(event.detail)
                 go(event.detail/3*20);
             });
         },
@@ -350,7 +354,7 @@ $.ns("JV");
                                     "-webkit-transform": "translateY(" + w_h + "px)",
                                     "transform": "translateY(" + w_h + "px)",
                                 });
-                                console.log(This_screen.nextAll("section"))
+                                //console.log(This_screen.nextAll("section"))
                                     //重置页面不规律滚动错位
                                 This_screen.nextAll("section").css({
                                     "-webkit-transform": "translateY(" + w_h + "px)",
