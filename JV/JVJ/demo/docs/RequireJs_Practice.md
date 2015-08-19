@@ -21,7 +21,7 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
 
 ## RequireJs 引用方式
 ```html
-<#-- 页面有依赖的多个js引用，最好用这种方式。 -->
+<!-- 页面有依赖的多个js引用，最好用这种方式。 -->
 <script src="/js/lib/require.js"></script>
 <script type="text/javascript">
 	require(['/js/config'],function(){
@@ -31,7 +31,7 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
     })
 </script>
 
-<#-- data-main适用于只有一个js入口文件的情况。因为data-main设置的脚本是异步加载的，所以不能保证在加载news.js前，config.js配置文件已经加载好，这样会导致引用路径报错。http://www.requirejs.org/docs/api.html#data-main -->
+<!-- data-main适用于只有一个js入口文件的情况。因为data-main设置的脚本是异步加载的，所以不能保证在加载news.js前，config.js配置文件已经加载好，这样会导致引用路径报错。http://www.requirejs.org/docs/api.html#data-main -->
 <script src="/js/lib/require.js" data-main="/js/config"></script>
     <script type="text/javascript">
       require(['article'],function(News){
@@ -42,6 +42,7 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
 
 ## RequireJs 配置函数
 ```javascript
+//config.js
 requirejs.config({
 	//可增加时间戳防止浏览器缓存
     //urlArgs: "d=" + (new Date()).getTime(),
