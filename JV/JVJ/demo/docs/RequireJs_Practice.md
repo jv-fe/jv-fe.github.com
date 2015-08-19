@@ -2,12 +2,19 @@
 
 ## AMD
 AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+
 ![AMD][amdImg]  
 
 ## RequireJs
 RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的一个实现。
+具有良好的兼容性：
+    IE 6+ .......... compatible ✔
+    Firefox 2+ ..... compatible ✔
+    Safari 3.2+ .... compatible ✔
+    Chrome 3+ ...... compatible ✔
+    Opera 10+ ...... compatible ✔
 
-## RequireJs 的好处
+## RequireJs 实践作用
 * 实现js文件的异步加载，避免网页失去响应，提高性能；
 * 管理模块之间的依赖性，便于代码的编写和维护。
 * 实现了代码的模块化，便于复用。
@@ -130,6 +137,7 @@ define(['common'], function(Common) {
 
 ## RequireJS 部署合并
 http://www.requirejs.org/docs/optimization.html
+grunt配置如下：
 ```javascript
 //本地编译的配置（测试环境和线上需要修改对应的路径）
   grunt.initConfig({
@@ -170,7 +178,6 @@ http://www.requirejs.org/docs/optimization.html
   });
 ```
 
-## 注意要点
 
 
 
