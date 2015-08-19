@@ -31,9 +31,10 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
     })
 </script>
 
-<!-- data-main适用于只有一个js入口文件的情况。因为data-main设置的脚本是异步加载的，所以不能保证在加载news.js前，config.js配置文件已经加载好，这样会导致引用路径报错。http://www.requirejs.org/docs/api.html#data-main -->
+<!-- data-main适用于只有一个js入口文件的情况。 -->
 <script src="/js/lib/require.js" data-main="/js/config"></script>
     <script type="text/javascript">
+    	//会报article路径错误，因为data-main设置的脚本是异步加载的，所以不能保证在加载article.js前，config.js配置文件已经加载好。http://www.requirejs.org/docs/api.html#data-main
       require(['article'],function(News){
         News.init();
         });
