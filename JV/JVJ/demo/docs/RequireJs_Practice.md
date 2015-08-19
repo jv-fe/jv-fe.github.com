@@ -2,6 +2,7 @@
 
 ## AMD
 AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+
 ![AMD][amdImg]  
 
 ## RequireJs
@@ -20,7 +21,7 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
 
 ## RequireJs 引用方式
 ```html
-/* 页面有依赖的多个js引用，最好用这种方式。 */
+<#-- 页面有依赖的多个js引用，最好用这种方式。 -->
 <script src="/js/lib/require.js"></script>
 <script type="text/javascript">
 	require(['/js/config'],function(){
@@ -30,7 +31,7 @@ RequireJS是一款遵循AMD规范协议的JavaScript模块加载器，是AMD的�
     })
 </script>
 
-/* data-main适用于只有一个js入口文件的情况。因为data-main设置的脚本是异步加载的，所以不能保证在加载news.js前，config.js配置文件已经加载好，这样会导致引用路径报错。http://www.requirejs.org/docs/api.html#data-main */
+<#-- data-main适用于只有一个js入口文件的情况。因为data-main设置的脚本是异步加载的，所以不能保证在加载news.js前，config.js配置文件已经加载好，这样会导致引用路径报错。http://www.requirejs.org/docs/api.html#data-main -->
 <script src="/js/lib/require.js" data-main="/js/config"></script>
     <script type="text/javascript">
       require(['article'],function(News){
@@ -177,8 +178,8 @@ grunt配置如下：
   });
 ```
 
-
-
+## RequireJS 实践总结
+Gold黄金系列赛平台使用RequireJS后，js的请求数比起传统的方式没减少多少。但它是用异步的方式来请求依赖，不会造成请求阻塞，所以性能应该会比传统的请求方式要好些。其实RequireJS最佳实践场景是运用在webapp这种单页面应用上。对于我们官网这种多页面的平台，它更多的意义不在于性能的提升，而是用模块化的思想管理和加载js，这样对于代码的维护是有好处的。
 
 ## Reference
 1. [前端模块化开发的价值](https://github.com/seajs/seajs/issues/547)
