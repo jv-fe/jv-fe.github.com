@@ -1,5 +1,8 @@
 # RequireJs Practice
 
+## Update Log
+2015.09.03 - requireJs的config.js可以直接引用外链的js。然后通过shim来配置不符合AMD规范写的js模块。这样我们就可以方便地引用公用的Login.js和SSO.js。
+
 ## AMD
 AMD是"Asynchronous Module Definition"的缩写，意思就是"异步模块定义"。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
 
@@ -62,6 +65,9 @@ requirejs.config({
 		'Login': 'lib/login',
 		'battle_nav': 'lib/battle_nav',
 		'juicer': 'lib/juicer',
+        //可以直接引用CDN的js
+        'Login': 'http://account.bnet.163.com/js/login',
+		'SSO': 'http://account.bnet.163.com/js/sso'
 	},
     //加载非规范的模块：为那些没有使用define()来声明依赖关系的脚本做依赖和导出配置。jQuery插件可以简写成下面形式。
 	shim: {
@@ -69,7 +75,16 @@ requirejs.config({
 		'jquery.scrollTo': ['jquery'],
 		'jquery.imageScroll': ['jquery'],
 		'jquery.lightBox': ['jquery'],
-		'jquery.slider': ['jquery']
+		'jquery.slider': ['jquery'],
+        //通过shim来配置非模块化编写的js。
+        'SSO':{
+			deps: ['jquery', 'jquery.cookie'],
+			exports: 'SSO'
+		},
+		'Login':{
+			deps: ['jquery', 'jquery.cookie'],
+			exports: 'Login'
+		}
 	}
 });
 ```
@@ -151,7 +166,9 @@ grunt配置如下：
       compile: {
         options: {
           appDir: './',
+          //如果填了appDir，这baseUrl的路径是相对于appDir的。
           baseUrl: 'js/',
+          //注意mainConfigFile的路径不依赖上面的appDir和baseUrl配置的路径。所以要写完整的config文件路径
           mainConfigFile: 'js/config.js',
           //跳过非配置的文件，可增加编译速度。
           skipDirOptimize: true,
