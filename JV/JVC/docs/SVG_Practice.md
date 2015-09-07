@@ -10,19 +10,20 @@ SVG是"Scalable Vector Graphics"的简称。中文可以理解成“可缩放矢
 * SVG支持的浏览器：IE9+
 
 ##SVG vs Icon Font
-从SVG是矢量这个特点可以看出它非常适合做页面上的图标，方便放大缩小和更换颜色。那它跟同样有这种特点的Icon Font有什么区别呢？我们看下Icon Font的一些缺陷就知道了：
+从SVG是矢量这个特点可以看出它非常适合做页面上的图标，无损放大缩小和方便更换颜色。那它跟同样有这种特点的Icon Font有什么区别呢？我们看下Icon Font的一些缺陷就知道了：
 
 * Icon Font本质上是文字，系统会对文字进行抗锯齿优化。不同系统下对文字进行抗锯齿的算法不同，可能会导致显示效果不大相同。
 * Icon Font显示的位置大小会受font-size,line-height,word-spacing等css属性影响，调整起来比较麻烦。
 * Icon Font为了实现最大程度的浏览器支持，可能要提供至少四种不同类型的字体文件。包括TTF、WOFF、EOT 以及一个使用 SVG 格式定义的字体。
+* Icon Font会有跨域的问题。而且网络慢的情况下会先显示文字，加载完才会出现对应Icon。
 
 ##How to import svg
 
 ###1.img/object tag
 ```html
-/* svg as object */
+<!-- svg as object -->
 <object type="image/svg+xml" data="image.svg" class="logo"></object>
-/* svg as img */
+<!-- svg as img -->
 <img src="image.svg" class="logo"/>
 ```
 使用 img 和 object 标签直接引用 SVG 是早期常见的使用方法。 这种方法的缺点主要在于要求每个图标都单独保存成一个 SVG 文件，使用时也是单独请求的。 如果在页面中使用的多个图标，每个都是单独请求的话会产生很多请求数，增加服务端的负载和拖慢页面加载速度， 因此现在很少使用了。
@@ -116,6 +117,7 @@ SVG Symbols区别于第二种Inline SVG。它用symbol元素来定义每个图�
 
 打开那个svg文件，稍微修改下我们就可以把下面这些信息复制到html里。
 ```html
+<body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="icon-yx" viewBox="0 0 1024 1024">
         <title>易信分享图标</title>
@@ -131,9 +133,8 @@ SVG Symbols区别于第二种Inline SVG。它用symbol元素来定义每个图�
     </symbol>
     ...
 </svg>
-```
-html引用：
-```html
+
+<!-- 上面定义好了，所以下面可以use拿来用 -->
 <ul>
     <li>
     	<a class="jiathis_button_yixin" href="javascript:void(0)">
@@ -151,6 +152,7 @@ html引用：
     </li>
     ...
 </ul>
+</body>
 ```
 css调整样式
 ```css
@@ -166,7 +168,8 @@ css调整样式
     <li>
     	<a class="jiathis_button_yixin" href="javascript:void(0)">
     		<svg class="u-svg u-svg-yx">
-            	<use xlink:href="#icon-yx" />
+            	<use xlink:href="/img/svg-icons.svg#icon-yx" />
+                <!-- IE8不支持svg，但能识别到desc里的内容，因此用里面的内容做hack -->
                 <desc>
                 	<span class="u-svgfallback u-svgfallback-yx"></span>
                 </desc>
@@ -176,7 +179,7 @@ css调整样式
     <li>
     	<a class="jiathis_button_tsina" href="javascript:void(0)">
         	<svg class="u-svg u-svg-wb">
-            	<use xlink:href="#icon-wb" />
+            	<use xlink:href="/img/svg-icons.svg#icon-wb" />
                 <desc>
                 	<span class="u-svgfallback u-svgfallback-wb"></span>
                 </desc>
@@ -187,16 +190,9 @@ css调整样式
 </ul>
 ```
 
-sass样式代码
+sass样式代码：
 ```sass
-@mixin share-svg($name,$width,$height){
-	display:inline-block;
-	width:#{$width}px;
-	height:#{$height}px;
-	background:url(http://blz.nos.netease.com/1/gold/images/common/share_#{$name}.png?imageView&thumbnail=#{$width}x#{$height}) \9;
-}
-
-
+/* 支持svg的浏览器写法照旧，而且有hover效果 */
 .u-svg{
 	width:20px;
 	height:20px;
@@ -205,14 +201,30 @@ sass样式代码
 .u-svg:hover{
 	fill:#feeb8a;
 }
+/* 以下是针对IE8的hack，支持图标的放大缩小，但不支持hover颜色改变 */
+@mixin share-svg($name,$width,$height){
+	display:inline-block \9;
+	width:#{$width}px \9;
+	height:#{$height}px \9;
+	background:url(http://blz.nos.netease.com/1/gold/images/common/share_#{$name}.png?imageView&thumbnail=#{$width}x#{$height}) \9;
+}
 .u-svgfallback-yx{
 	@include share-svg(yx,20,20);
 }
 .u-svgfallback-wb{
 	@include share-svg(wb,20,20);
 }
-
 ```
+
+##SVG Practice Summary
+至此，支持SVG的用外链引用，IE9-11用ajax的方式解决外链问题，IE7/8用mule的api完成图标的放大缩小功能。这样就能较为优雅的解决分享图标每次都要重新切的问题。但回头想想，SVG要兼容的地方还真不少呢，要多写一大堆代码hack。这远不如Icon Font来得简单，兼容IE7/8无损放大缩小，也支持hover变色。
+的确，就上面这个需求场景来看，用Icon Font是比SVG要方便得多。良好的兼容性也正是Icon Font的一大优点。但如果是在移动端开发的话，SVG的优势就会突现起来。它只要外链一个svg文件，各平台的渲染出来结果一样，不会受css文本属性的影响，同时它自身还支持动画。
+这次实践主要想了解下SVG，所以用它来实现分享图标。实际证明这场景下还是用Icon Font比较方便。但技术方案总有各自的优劣，我们还是要根据不同的应用场景来选择较好的解决方案。这也只是SVG的冰山一角，其实它还可以做更多的东西，这就需要大家多去研究探讨了。
+
+附[专题地址](http://d3.blz.netease.com/minisite/wow)
+
+
+
 ## Reference
 1. [SVG系列教程](http://www.w3cplus.com/html5/svg-introduction-and-embedded-html-page.html)
 2. [SVG的用法](http://www.webhek.com/svg/)
