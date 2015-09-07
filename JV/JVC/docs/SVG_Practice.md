@@ -108,11 +108,111 @@ SVG Symbols区别于第二种Inline SVG。它用symbol元素来定义每个图�
 ##SVG Practice
 这次做魔兽暗黑联合活动专题，尝试着用svg来做分享的icon图标。因为分享的这几个图标通用于各个专题，但它的大小和hover颜色则根据专题每次都不同的。我们前端每次都单独切一份图，还是挺烦的。而SVG的特点正好可以满足我们灵活更换大小颜色的需求。
 
-首先我们需要矢量的svg分享图标。一般来说，这个是由视觉提供。但我找到了个非常好的工具，可以方便地把位图转成svg矢量图——[ Vector Magic](http://pan.baidu.com/s/1dDnqdxf)，这样就不用设计师介入了(当然设计师提供的肯定会更精细)。
+首先我们需要矢量的svg分享图标。一般来说，这个是由设计师提供。但我找到了个非常好的工具，可以方便地把位图转成svg矢量图——[ Vector Magic](http://pan.baidu.com/s/1dDnqdxf)，这样就不用设计师介入了(当然设计师提供的肯定会更精细)。
 
 这个工具比较简单，直接把图标的png图片导进去，一步步往下就能输出svg的矢量图了。
 
+导出了每个图标的svg矢量文件后，我们最好用上面提到的[icomoon](https://icomoon.io/app/)在线工具把它们合成在同一个svg文件里面。我们可以把这个svg文件传到mule，然后直接外链use里面对应的图标id就可以愉快的耍起来了。但由于上面提到坑爹的IE9-11不支持svg外链的问题，我又不想用js来解决，所以我采用传统的方式，把svg的信息写在了html里面来引用。
 
+打开那个svg文件，稍微修改下我们就可以把下面这些信息复制到html里。
+```html
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-yx" viewBox="0 0 1024 1024">
+        <title>易信分享图标</title>
+        <path class="path1" d="M372.578 60.258c273.723-94.129 592.345 120.123 609.674 408.025 35.84 282.388-231.188 549.415-513.182 514.363-278.843-18.117-493.883-317.834-414.72-587.618 38.597-156.751 165.022-286.72 318.228-334.769zM322.56 127.606c-195.348 90.191-293.415 340.283-210.708 539.569 72.862 200.862 308.775 319.409 513.969 258.363 237.095-57.502 380.455-339.495 287.508-565.169-79.951-230.794-374.548-346.978-590.769-232.763z"></path>
+        <path class="path2" d="M291.052 727.040c-179.988-155.963-79.163-472.222 145.723-516.726 234.338-57.895 438.351 229.612 320.985 434.412-35.84 57.108-133.12 117.366-52.382 182.351-129.575-3.545-258.757-13.785-384.788-44.505 111.065-70.892 281.206-80.738 322.166-230.006 52.775-134.302-146.117-275.692-246.942-159.114-87.040 68.529-55.138 192.591 26.388 250.88-44.111 27.175-94.129 45.292-131.151 82.708z"></path>
+    </symbol>
+    <symbol id="icon-wb" viewBox="0 0 1024 1024">
+        <title>微博分享图标</title>
+        <path class="path1" d="M333.588 64.591c282.782-118.154 647.089 91.766 652.603 405.268 29.932 208.345-104.369 415.114-296.566 490.732-192.985 65.772-432.049 20.874-555.717-152.418-196.135-235.914-89.403-637.637 199.68-743.582zM365.883 125.243c-292.234 100.825-358.4 535.631-104.369 714.043 235.126 198.892 652.209 24.812 657.329-288.295 46.474-293.809-282.782-534.843-552.96-425.748z"></path>
+        <path class="path2" d="M577.378 248.123c114.609-47.262 243.003 22.449 217.403 157.538-48.837-83.889-118.154-144.148-217.403-157.538z"></path>
+        <path class="path3" d="M247.729 488.763c48.837-104.369 125.243-211.889 244.972-237.489 98.068 60.652 23.631 231.188-86.646 233.945-129.575 29.145-118.548 179.594-9.058 228.825 125.243 7.089 266.634-32.689 309.563-164.628-42.929-38.991-91.372-68.923-145.329-89.797-23.237-68.923 67.348-168.96 128.788-99.249 25.994 54.745 56.32 107.52 94.917 154.388-38.991 91.372-89.009 196.135-191.409 228.431-80.345 8.665-161.871 10.634-241.822-0.394-105.157-33.083-147.692-156.751-103.975-254.031z"></path>
+        <path class="path4" d="M341.858 617.551c29.538-133.908 185.502-153.206 252.455-47.655-43.717 88.222-130.757 125.637-230.794 111.065 35.84-36.628 77.194-66.56 117.76-97.674-34.658 8.665-104.369 25.6-139.422 34.265z"></path>
+    </symbol>
+    ...
+</svg>
+```
+html引用：
+```html
+<ul>
+    <li>
+    	<a class="jiathis_button_yixin" href="javascript:void(0)">
+    		<svg class="u-svg u-svg-yx">
+            	<use xlink:href="#icon-yx" />
+            </svg>
+        </a>
+    </li>
+    <li>
+    	<a class="jiathis_button_tsina" href="javascript:void(0)">
+        	<svg class="u-svg u-svg-wb">
+            	<use xlink:href="#icon-wb" />
+            </svg>
+        </a>
+    </li>
+    ...
+</ul>
+```
+css调整样式
+```css
+.u-svg{width:26px;height:26px;fill:#fff;}
+.u-svg:hover{fill:#feeb8a;}
+```
+
+这样我们就用svg完成了分享的图标。但…我们目前还要考虑IE8的兼容问题。IE8不支持svg，我们只能用传统的png图片来fallback。这样子的话，那还不是要每次为IE8重新切图——我目前暂时是这样子做的。
+
+其实IE8如果不考虑hover的颜色，只要fallback到可以灵活控制图标大小，不用切图也是可以做到的。因为mule提供了放大缩小图片的api，再配合sass预处理器就可以封装成一个较好的解决方案：
+```html
+<ul>
+    <li>
+    	<a class="jiathis_button_yixin" href="javascript:void(0)">
+    		<svg class="u-svg u-svg-yx">
+            	<use xlink:href="#icon-yx" />
+                <desc>
+                	<span class="u-svgfallback u-svgfallback-yx"></span>
+                </desc>
+            </svg>
+        </a>
+    </li>
+    <li>
+    	<a class="jiathis_button_tsina" href="javascript:void(0)">
+        	<svg class="u-svg u-svg-wb">
+            	<use xlink:href="#icon-wb" />
+                <desc>
+                	<span class="u-svgfallback u-svgfallback-wb"></span>
+                </desc>
+            </svg>
+        </a>
+    </li>
+    ...
+</ul>
+```
+
+sass样式代码
+```sass
+@mixin share-svg($name,$width,$height){
+	display:inline-block;
+	width:#{$width}px;
+	height:#{$height}px;
+	background:url(http://blz.nos.netease.com/1/gold/images/common/share_#{$name}.png?imageView&thumbnail=#{$width}x#{$height}) \9;
+}
+
+
+.u-svg{
+	width:20px;
+	height:20px;
+    fill:#fff;
+}
+.u-svg:hover{
+	fill:#feeb8a;
+}
+.u-svgfallback-yx{
+	@include share-svg(yx,20,20);
+}
+.u-svgfallback-wb{
+	@include share-svg(wb,20,20);
+}
+
+```
 ## Reference
 1. [SVG系列教程](http://www.w3cplus.com/html5/svg-introduction-and-embedded-html-page.html)
 2. [SVG的用法](http://www.webhek.com/svg/)
