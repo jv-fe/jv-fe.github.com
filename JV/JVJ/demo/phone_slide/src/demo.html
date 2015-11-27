@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no;" name="viewport" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<title>phoneSlide组件</title>
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/common.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		<div class="cover">
+			<div class="cover_box" data-effect="ScreenCling" data-scale="n">ScreenCling</div>
+			<div class="cover_box" data-effect="ScreenTouch" data-scale="n">ScreenTouch</div>
+			<div class="cover_box" data-effect="ScreenTouch" data-scale="y">ScreenTouch--scale</div>
+			<div class="cover_box" data-effect="ScreenTouchGo" data-scale="n">ScreenTouchGo</div>
+		</div>
+		<div class="reload">重置</div>
+		<div class="main">
+			<div class="content" id="content" data-index="1">
+				<section class="screen" id="screen_1">
+					<div class="demo_icon pos_1 ani_200ms red" data-class="fadeInLeft">A</div>
+					<div class="demo_icon pos_2 ani_400ms yellow" data-class="fadeInRight">B</div>
+					<div class="demo_icon pos_3 ani_600ms green" data-class="fadeInTop">C</div>
+					<div class="demo_icon pos_4 ani_800ms purple" data-class="fadeInBottom">D</div>
+					<div class="page_arrow">
+						<img src="img/arrow.png">
+					</div>
+				</section>
+				<section class="screen" id="screen_2">
+					<div class="demo_icon pos_5 ani_200ms red" data-class="fadeInTop">A</div>
+					<div class="demo_icon pos_2 ani_600ms blue opacity1" data-class="fadeOutBottom">B</div>
+					<div class="demo_icon pos_1 ani_1s green" data-class="fadeInTop">C</div>
+					<div class="demo_icon pos_6 ani_800ms purple opacity1" data-class="fadeOutRight">D</div>
+					<div class="page_arrow">
+						<img src="img/arrow.png">
+					</div>
+				</section>
+				<section class="screen" id="screen_3">
+					<div class="demo_icon pos_5 ani_200ms green" data-class="fadeInLeft">A</div>
+					<div class="demo_icon pos_2 ani_600ms blue" data-class="fadeInRight">B</div>
+					<div class="demo_icon pos_1 ani_1s yellow" data-class="fadeInRight">C</div>
+					<div class="demo_icon pos_6 ani_800ms purple" data-class="fadeInLeft">D</div>
+					<div class="page_arrow">
+						<img src="img/arrow.png">
+					</div>
+				</section>
+				<section class="screen" id="screen_4">
+					<div class="demo_icon pos_5 ani_1s blue" data-class="fadeInRight">A</div>
+					<div class="demo_icon pos_2 ani_400ms yellow" data-class="fadeInRight">B</div>
+					<div class="demo_icon pos_1 ani_600ms red" data-class="fadeInLeft">C</div>
+					<div class="demo_icon pos_6 ani_800ms purple" data-class="fadeInLeft">D</div>
+				</section>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/zepto.js"></script>
+		<script type="text/javascript" src="js/fastclick.js"></script>
+		<script type="text/javascript" src="js/jquery.namespace.js"></script>
+		<script type="text/javascript" src="js/jquery.phoneSlide.js"></script>
+		<script type="text/javascript">
+		$(".cover_box").click(function() {
+			var This = $(this);
+			var setEffect = This.data("effect");
+			var setscale = This.data("scale");
+			new JV.phoneSlide($("#content"), {
+				effect: setEffect, //ScreenCling,ScreenTouch,ScreenTouchGo
+				speed: 200, //滚动速度快慢
+				scale: setscale, //是否有滚动缩放 "n" or "y"
+				rotation:"y", //是否开启横屏提示
+				callBack: function(index) { //滚屏组件
+					if (index == 1) { //是否是第一页
+					}
+				}
+			});
+
+			$(".cover").remove();
+		})
+		$(".reload").click(function(){
+			window.location.reload()
+		})
+		</script>
+	</body>
+</html>
